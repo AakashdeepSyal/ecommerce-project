@@ -1,6 +1,8 @@
-package com.example.ecommerce.model;
+package com.example.ecommerce.dto.response;
 
-public class Product {
+import com.example.ecommerce.model.Product;
+
+public class ProductResponse {
 
     private Long id;
     private String name;
@@ -14,21 +16,22 @@ public class Product {
     private String currency;
     private String imageUrl;
 
-    public Product() {
+
+    public ProductResponse() {
     }
 
-    public Product(Long id, String name, String description, String sku, String category, String brand, double price, double discountedPercentage, int stockQuantity, String currency, String imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.category = category;
-        this.brand = brand;
-        this.price = price;
-        this.discountedPercentage = discountedPercentage;
-        this.stockQuantity = stockQuantity;
-        this.currency = currency;
-        this.imageUrl = imageUrl;
+    public ProductResponse(Product product) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.sku = product.getSku();
+        this.category = product.getCategory();
+        this.brand = product.getBrand();
+        this.price = product.getPrice();
+        this.discountedPercentage = product.getDiscountedPercentage();
+        this.stockQuantity = product.getStockQuantity();
+        this.currency = product.getCurrency();
+        this.imageUrl = product.getImageUrl();
     }
 
     public Long getId() {

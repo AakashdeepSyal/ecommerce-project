@@ -25,14 +25,16 @@ public class ProductRepository {
         return product;
     }
 
-    public Product updateProductById( Long id, Product product) {
-        Product realProduct = products.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
-        if (realProduct != null) {
-            realProduct.setName(product.getName());
-            realProduct.setPrice(product.getPrice());
-            realProduct.setCategory(product.getCategory());
+    public Product updateProduct(Product product) {
+        for (int i = 0; i < products.size(); i++) {
+
+            if (products.get(i).getId().equals(product.getId())) {
+                products.set(i, product);
+                return product;
+            }
         }
-        return realProduct;
+
+        return null;
     }
 
     public void deleteById(Long id) {

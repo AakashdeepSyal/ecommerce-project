@@ -1,11 +1,9 @@
-package com.example.ecommerce.model;
+package com.example.ecommerce.dto.request;
 
-public class Product {
+public class UpdateProductRequest {
 
-    private Long id;
     private String name;
     private String description;
-    private String sku;
     private String category;
     private String brand;
     private double price;
@@ -14,29 +12,7 @@ public class Product {
     private String currency;
     private String imageUrl;
 
-    public Product() {
-    }
-
-    public Product(Long id, String name, String description, String sku, String category, String brand, double price, double discountedPercentage, int stockQuantity, String currency, String imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.category = category;
-        this.brand = brand;
-        this.price = price;
-        this.discountedPercentage = discountedPercentage;
-        this.stockQuantity = stockQuantity;
-        this.currency = currency;
-        this.imageUrl = imageUrl;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UpdateProductRequest() {
     }
 
     public String getName() {
@@ -53,14 +29,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
     }
 
     public String getCategory() {
