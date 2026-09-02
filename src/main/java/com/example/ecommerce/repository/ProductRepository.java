@@ -11,6 +11,7 @@ import java.util.List;
 public class ProductRepository {
 
     private final List<Product> products = new ArrayList<>();
+    private long nextId = 1l;  // temporary solution for getting id incremented for creating products as we are using right now in -memory array list.
 
     public List<Product> findAll() {
         return products;
@@ -21,6 +22,7 @@ public class ProductRepository {
     }
 
     public Product save(Product product) {
+        product.setId(nextId++);  // temporary solution for getting id incremented for creating products as we are using right now in -memory array list.
         products.add(product);
         return product;
     }

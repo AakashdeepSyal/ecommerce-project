@@ -1,14 +1,35 @@
 package com.example.ecommerce.dto.request;
 
+import jakarta.validation.constraints.*;
+
 public class UpdateProductRequest {
 
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String description;
+
+    @NotBlank
+    private String sku;
+
+    @NotBlank
     private String category;
+
+    @NotBlank
     private String brand;
+
+    @Positive
     private double price;
+
+    @DecimalMin("0.0")
+    @DecimalMax("100.0")
     private double discountedPercentage;
+
+    @PositiveOrZero
     private int stockQuantity;
+
+    @NotBlank
     private String currency;
     private String imageUrl;
 
