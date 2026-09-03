@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody UpdateProductRequest requestProduct) {
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody UpdateProductRequest requestProduct) {
         ProductResponse productResponse = productService.updateProduct(id, requestProduct);
         return ResponseEntity.ok(productResponse);
     }
@@ -51,4 +51,12 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    // Test API for testing general exception handling
+//    @GetMapping("/test-error")
+//    public String testError() {
+//        throw new RuntimeException("This is a test exception");
+//    }
+
 }

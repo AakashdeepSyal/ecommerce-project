@@ -4,6 +4,7 @@ package com.example.ecommerce.service;
 import com.example.ecommerce.dto.request.CreateProductRequest;
 import com.example.ecommerce.dto.request.UpdateProductRequest;
 import com.example.ecommerce.dto.response.ProductResponse;
+import com.example.ecommerce.exception.ProductNotFoundException;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,15 @@ public class ProductService {
     }
 
     public ProductResponse getProductById(Long id) {
-        return new ProductResponse(productRepository.findById(id));
+        Product product =  productRepository.findById(id);
+
+        // Exception Handling
+        if (product == null) {
+            throw new ProductNotFoundException(
+                    "Product with id " + id + " not found"
+            );
+        }
+        return new ProductResponse(product);
     }
 
     public ProductResponse createProduct(CreateProductRequest requestProduct) {
@@ -46,6 +55,14 @@ public class ProductService {
 
     public ProductResponse updateProduct(Long id , UpdateProductRequest requestProduct) {
         Product product = productRepository.findById(id);
+
+        // Exception Handling
+        if (product == null) {
+            throw new ProductNotFoundException(
+                    "Product with id " + id + " not found"
+            );
+        }
+
         product.setName(requestProduct.getName());
         product.setDescription(requestProduct.getDescription());
         product.setCategory(requestProduct.getCategory());
@@ -60,6 +77,14 @@ public class ProductService {
         return new ProductResponse(updatedProduct);
     }
     public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id);
+
+        // Exception Handling
+        if (product == null) {
+            throw new ProductNotFoundException(
+                    "Product with id " + id + " not found"
+            );
+        }
         productRepository.deleteById(id);
     }
 }
