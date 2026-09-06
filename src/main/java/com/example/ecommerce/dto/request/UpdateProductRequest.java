@@ -11,9 +11,6 @@ public class UpdateProductRequest {
     private String description;
 
     @NotBlank
-    private String sku;
-
-    @NotBlank
     private String category;
 
     @NotBlank

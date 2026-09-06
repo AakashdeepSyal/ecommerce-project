@@ -4,10 +4,10 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.dto.request.CreateProductRequest;
 import com.example.ecommerce.dto.request.UpdateProductRequest;
 import com.example.ecommerce.dto.response.ProductResponse;
+import com.example.ecommerce.exception.InvalidPaginationException;
 import com.example.ecommerce.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +23,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts() {
-        List<ProductResponse> productResponseList = productService.getAllProducts();
+    public ResponseEntity<List<ProductResponse>> getAllProducts( @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        if(page < 0 || size <= 0) {
+            throw new InvalidPaginationException("Page must be greater than or equal to 0 and size must be greater than 0");
+        }
+        List<ProductResponse> productResponseList = productService.getAllProducts(page, size);
         return ResponseEntity.ok(productResponseList);
     }
 
@@ -54,9 +57,9 @@ public class ProductController {
 
 
     // Test API for testing general exception handling
-//    @GetMapping("/test-error")
-//    public String testError() {
-//        throw new RuntimeException("This is a test exception");
-//    }
+    @GetMapping("/test-error")
+    public String testError() {
+        throw new RuntimeException("This is a test exception");
+    }
 
 }
