@@ -23,11 +23,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts( @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<List<ProductResponse>> getAllProducts( @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String category, @RequestParam(required = false) String brand,
+    @RequestParam(required = false) Double minPrice, @RequestParam(required = false) Double maxPrice, @RequestParam(required = false) String sort) {
         if(page < 0 || size <= 0) {
             throw new InvalidPaginationException("Page must be greater than or equal to 0 and size must be greater than 0");
         }
-        List<ProductResponse> productResponseList = productService.getAllProducts(page, size);
+        List<ProductResponse> productResponseList = productService.getAllProducts(page, size, category, brand, minPrice, maxPrice, sort);
         return ResponseEntity.ok(productResponseList);
     }
 
