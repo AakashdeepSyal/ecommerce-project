@@ -141,17 +141,12 @@ public class ProductService {
         return paginatedProducts.stream().map(ProductResponse::new).toList(); // converting the list of Products form repository into list of product response dto's
     }
 
-    public ProductResponse getProductById(Long id) {
+    public ProductResponse getProductById(String id) {
         logger.info("Fetching product with id {}", id);
-        Product product =  productRepository.findById(id);
-
-        // Exception Handling
-        if (product == null) {
+        Product product =  productRepository.findById(id).orElseThrow(()-> {
             logger.warn("Product with id {} not found", id);
-            throw new ProductNotFoundException(
-                    "Product with id " + id + " not found"
-            );
-        }
+            return new ProductNotFoundException("Product with id " + id + " not found");});
+
         return new ProductResponse(product);
     }
 
@@ -174,17 +169,11 @@ public class ProductService {
         return new ProductResponse(savedProduct);
     }
 
-    public ProductResponse updateProduct(Long id , UpdateProductRequest requestProduct) {
+    public ProductResponse updateProduct(String id , UpdateProductRequest requestProduct) {
         logger.info("Updating product with id {}", id);
-        Product product = productRepository.findById(id);
-
-        // Exception Handling
-        if (product == null) {
+        Product product = productRepository.findById(id).orElseThrow(()-> {
             logger.warn("Product with id {} not found", id);
-            throw new ProductNotFoundException(
-                    "Product with id " + id + " not found"
-            );
-        }
+            return new ProductNotFoundException("Product with id " + id + " not found");});
 
         product.setName(requestProduct.getName());
         product.setDescription(requestProduct.getDescription());
@@ -196,16 +185,16 @@ public class ProductService {
         product.setCurrency(requestProduct.getCurrency());
         product.setImageUrl(requestProduct.getImageUrl());
 
-        Product updatedProduct = productRepository.updateProduct(product);
+        Product updatedProduct = productRepository.save(product);
         return new ProductResponse(updatedProduct);
     }
-    public void deleteProduct(Long id) {
+    public void deleteProduct(String id) {
         logger.info("Deleting product with id {}", id);
-        Product product = productRepository.findById(id);
 
-        // Exception Handling
-        if (product == null) {
+        // just to know whether the product exists or not
+        if (!productRepository.existsById(id)) {
             logger.warn("Product with id {} not found", id);
+
             throw new ProductNotFoundException(
                     "Product with id " + id + " not found"
             );

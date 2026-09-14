@@ -4,7 +4,7 @@ import com.example.ecommerce.model.Product;
 
 public class ProductResponse {
 
-    private Long id;
+    private String id;
     private String name;
     private String description;
     private String sku;
@@ -34,11 +34,11 @@ public class ProductResponse {
         this.imageUrl = product.getImageUrl();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

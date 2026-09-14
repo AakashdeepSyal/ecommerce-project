@@ -1,8 +1,13 @@
 package com.example.ecommerce.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "products")
 public class Product {
 
-    private Long id;
+    @Id
+    private String id;
     private String name;
     private String description;
     private String sku;
@@ -17,8 +22,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String sku, String category, String brand, double price, double discountedPercentage, int stockQuantity, String currency, String imageUrl) {
-        this.id = id;
+    public Product( String name, String description, String sku, String category, String brand, double price, double discountedPercentage, int stockQuantity, String currency, String imageUrl) {
         this.name = name;
         this.description = description;
         this.sku = sku;
@@ -31,11 +35,11 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
